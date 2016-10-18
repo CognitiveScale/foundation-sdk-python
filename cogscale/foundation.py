@@ -47,13 +47,21 @@ class Repository(object):
 
     @staticmethod
     def _create_client(conn):
-        mongo_uri = "mongodb://{}:{}@{}:{}/{}".format(
-            conn["username"]
-            , conn["password"]
-            , conn["server"]["host"]
-            , conn["server"]["port"]
-            , conn["database"]
-        )
+        if "username" not in conn:
+            mongo_uri = "mongodb://{}:{}/{}".format(
+                conn["server"]["host"]
+                , conn["server"]["port"]
+                , conn["database"]
+            )
+
+        else:
+            mongo_uri = "mongodb://{}:{}@{}:{}/{}".format(
+                conn["username"]
+                , conn["password"]
+                , conn["server"]["host"]
+                , conn["server"]["port"]
+                , conn["database"]
+            )
 
         opts = conn["server"].get("options", {})
         if parse_bool(opts.get("ssl", False)):
