@@ -48,7 +48,7 @@ class Repository(object):
     @staticmethod
     def _create_client(conn):
         print conn
-        if conn.get("username") and conn.get("password"):
+        if conn.get("username") and conn.get("password") and parse_bool(conn.get("checkServerIdentity")):
             mongo_uri = "mongodb://{}:{}@{}:{}/{}".format(
                   conn["username"]
                 , conn["password"]
