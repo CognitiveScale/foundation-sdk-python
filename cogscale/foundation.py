@@ -47,8 +47,9 @@ class Repository(object):
 
     @staticmethod
     def _create_client(conn):
-        print conn
-        if conn.get("username") and conn.get("password") and parse_bool(conn.get("checkServerIdentity")):
+    
+        # If we dont need to authenticate, we wont!    
+        if conn.get("username") and conn.get("password") and os.getenv("MONGO_REQUIRES_AUTH", False)):
             mongo_uri = "mongodb://{}:{}@{}:{}/{}".format(
                   conn["username"]
                 , conn["password"]
