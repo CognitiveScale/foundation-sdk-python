@@ -49,7 +49,7 @@ class Repository(object):
     def _create_client(conn):
     
         # If we dont need to authenticate, we wont!    
-        if conn.get("username") and conn.get("password") and parse_bool(os.getenv("MONGO_REQUIRES_AUTH", True))):
+        if conn.get("username") and conn.get("password") and parse_bool(os.getenv("MONGO_REQUIRES_AUTH", True)):
             mongo_uri = "mongodb://{}:{}@{}:{}/{}".format(
                   conn["username"]
                 , conn["password"]
